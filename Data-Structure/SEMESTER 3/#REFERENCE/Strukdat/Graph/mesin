@@ -1,0 +1,53 @@
+#include "header.h"
+
+void createEmpty(graph *G){
+	(*G).first = NULL;
+}
+
+void addSimpul(char c, graph *G){
+	simpul *node;
+	node = (simpul *) malloc (sizeof (simpul));
+	node->info = c;
+	node->next = NULL;
+	node->arc = NULL;
+	
+	if((*G).first == NULL){
+		/* jika graph kosong */
+		(*G).first = node;
+	}else{
+		/* Menambahkan simpul baru pada akhir graph */
+		simpul *last = (*G).first;
+		
+		while(last->next != NULL){
+			/* cari elemen terakhir */
+			last = last->next;
+		}
+		
+		last->next = node;
+	}
+}
+
+void addJalur(simpul *tujuan, int beban, simpul *awal){
+	if(tujuan != NULL && awal != NULL){		
+		jalur *arc;
+		arc = (jalur *) malloc (sizeof (jalur));
+		arc -> info = beban;
+		arc->next = NULL;
+		arc->node = tujuan;
+		
+		if(awal->arc == NULL){
+			/* jika kosong */
+			awal->arc = arc;
+		}else{
+			/* menambahkan jalur baru pada akhir list jalur */
+			jalur *last = awal->arc;
+			
+			while(last->next != NULL){
+				last=last->next;
+			}
+			
+			last->next = arc;
+		}
+	}
+	
+}
